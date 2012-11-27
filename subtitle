@@ -9,7 +9,7 @@ match_list_path='/tmp/flora_subtitle_match'
 rm "$match_list_path" 2>/dev/null
 movie_file_path="$*"
 if [ -z "$movie_file_path" ]; then
-    echo 'Movie file is not specified.'
+    echo 'Movie filename is not specified.'
     exit 1
 fi
 
@@ -18,7 +18,7 @@ movie_filename=`basename "$movie_file_path"`
 movie_path=`dirname "$movie_file_path"`
 touch "$match_list_path"
 echo "Fetching subtitles for movie file: $movie_filename"
-sscl --video-file "$movie_file_path" --pull >"$match_list_path"
+`dirname $0`/sscl --video-file "$movie_file_path" --pull >"$match_list_path"
 mv "$splayer_sub_path"/* "$movie_path"/ 2>/dev/null
 
 # output and exit
