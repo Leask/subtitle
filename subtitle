@@ -1,36 +1,45 @@
 #!/bin/sh
 # Flora Subtitle by LeaskH.com
-# Based on SPlayerX sscl
+# Based on SVPSub and Subliminal
 
-# initialization
-splayer_sub_path="$HOME/Library/Application Support/SPlayerX/SVPSub"
-rm "$splayer_sub_path"/* 2>/dev/null
-match_list_path='/tmp/flora_subtitle_match'
-rm "$match_list_path" 2>/dev/null
+# Check args
 movie_file_path="$*"
 if [ -z "$movie_file_path" ]; then
     echo 'Movie filename is not specified.'
     exit 1
 fi
+echo "Fetch subtitles for movie file: $movie_filename"
 
-# fetch subtitles
+# SVPSub: initialization
+echo "\nSVPSub > Fetching..."
+splayer_sub_path="$HOME/Library/Application Support/SPlayerX/SVPSub"
+rm "$splayer_sub_path"/* 2>/dev/null
+match_list_path='/tmp/flora_subtitle_match'
+rm "$match_list_path" 2>/dev/null
+
+# SVPSub: fetch subtitles
 movie_filename=`basename "$movie_file_path"`
 movie_path=`dirname "$movie_file_path"`
 touch "$match_list_path"
-echo "Fetching subtitles for movie file: $movie_filename"
 `dirname $0`/sscl --video-file "$movie_file_path" --pull >"$match_list_path"
 mv "$splayer_sub_path"/* "$movie_path"/ 2>/dev/null
 
-# output and exit
+# SVPSub: Output
 subtitle_result=0
 while read subtitle_path; do
     subtitle_file=`basename "$subtitle_path"`
     subtitle_result=$((subtitle_result+1))
-    echo "Got subtitle: $subtitle_file"
+    echo "SVPSub > Got subtitle: $subtitle_file"
 done < $match_list_path
 if [ $subtitle_result -eq 0 ]; then
-    echo 'Subtitle not found.'
+    echo 'SVPSub > Subtitle not found.'
 fi
 rm "$splayer_sub_path"/* 2>/dev/null
 rm "$match_list_path" 2>/dev/null
+
+# Subliminal
+echo "\nSubliminal > Fetching..."
+subliminal download -l zh $movie_file_path
+
+# Exit
 exit 0
