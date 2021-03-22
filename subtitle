@@ -39,7 +39,17 @@ rm "$match_list_path" 2>/dev/null
 
 # Subliminal
 echo "\nSubliminal > Fetching..."
-subliminal download -l zh $movie_file_path
+subliminal download \
+-v \
+-l zh \
+-p legendastv \
+-p podnapisi \
+-p shooter \
+-p thesubdb \
+-p tvsubtitles \
+"$movie_file_path"
+# -p addic7ed \
+# -p opensubtitles \
 
 # Exit
 exit 0
