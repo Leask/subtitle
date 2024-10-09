@@ -1,4 +1,4 @@
 subtitle
 ========
 
-Fetch subtitles from SPlayerX web service
+Fetch subtitles from the SPlayerX, OpenSubtitles and other web services. 
