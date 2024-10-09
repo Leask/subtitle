@@ -42,14 +42,16 @@ echo "\nSubliminal > Fetching..."
 subliminal download \
 -v \
 -l zh \
--p legendastv \
+-p addic7ed \
+-p gestdown \
+-p napiprojekt \
+-p opensubtitles \
+-p opensubtitlescom \
+-p opensubtitlescomvip \
+-p opensubtitlesvip \
 -p podnapisi \
--p shooter \
--p thesubdb \
 -p tvsubtitles \
 "$movie_file_path"
-# -p addic7ed \
-# -p opensubtitles \
 
 # Exit
 exit 0
